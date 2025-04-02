@@ -26,4 +26,5 @@ class LinksApp {
   static const getOrderDeliveryById = "$server/Get-orderby-delivery";
   static const getAllCatogrey = "$server/Get-categories";
   static const getAllProductByCatogrey = "$server/Get-categories-prodect";
+  static const balance = "$server/balance";
 }

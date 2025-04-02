@@ -32,6 +32,8 @@ class _MyAccountState extends State<MyAccount> {
   TextEditingController oldPassword = TextEditingController();
   TextEditingController newPassword = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+  TextEditingController sales = TextEditingController();
+  TextEditingController note = TextEditingController();
 
   bool updateInfo = false;
   bool addBalnceInfo = false;
@@ -357,22 +359,33 @@ class _MyAccountState extends State<MyAccount> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Text("774214447 حسابتنا علئ الرقم التالي او للتحويل"),
                           TextFieldAccount(
-                              labelText: "الاسم الكامل",
+                              labelText: "المبلغ",
                               helper: errorName,
-                              icon: Icons.person_2_outlined,
+                              icon: Icons.money,
                               password: false,
-                              controller: name,
-                              keyboardType: TextInputType.text),
-                          TextFieldAccount(
-                              labelText: "رقم الهاتف",
-                              helper: errorPhone,
-                              icon: Icons.phone_android_outlined,
-                              password: false,
-                              controller: phone,
+                              controller: sales,
                               keyboardType: TextInputType.number),
+                          TextFieldAccount(
+                              labelText: "رفم الحواله",
+                              helper: errorPhone,
+                              icon: Icons.numbers,
+                              password: false,
+                              controller: note,
+                              keyboardType: TextInputType.text),
                           ButtonsUpdateAccounts(
-                            Ok: UpdateProfile,
+                            Ok: () async {
+                              // var id =Cache.GetString()
+                              final response =
+                                  await Api.post("${LinksApp.balance}/${id}", {
+                                "totel_balance": sales.text,
+                                "description": note.text,
+                              });
+                              print("55555555555555555555555");
+                              print("$response");
+                              print("55555555555555555555555");
+                            },
                             Cansel: () {
                               name.text = "";
                               phone.text = "";
