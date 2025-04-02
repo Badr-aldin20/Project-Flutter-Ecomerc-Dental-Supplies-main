@@ -1,3 +1,4 @@
+// Pages/Auth/LoginDelivery.dart
 import 'package:dental_supplies/Pages/Delivery/Delivery.dart';
 import 'package:dental_supplies/Pages/Layout.dart';
 import 'package:dental_supplies/Utils/Api.dart';
@@ -45,10 +46,10 @@ class _LogindeliveryState extends State<Logindelivery> {
       setState(() {});
 
       var response = await Api.post(LinksApp.loginDelivery, {
-        "email": "${email.text.trim()}",
-        "password": "${password.text}",
+        "email": email.text.trim(),
+        "password": password.text,
       });
-
+      print(response);
       if (response["status"] == "200") {
         Cache.SetString("id", "${response["data"]["id"]}");
         Cache.SetString(Cache.Delivery, "true");
@@ -107,17 +108,16 @@ class _LogindeliveryState extends State<Logindelivery> {
                 width: sending ? 100 : MediaQuery.of(context).size.width / 2,
                 contentBtn: sending
                     ? const CircularProgressIndicator(
-                  color: ColorsApp.white,
-                )
+                        color: ColorsApp.white,
+                      )
                     : const Text(
-                  "تسجيل دخول",
-                  style: TextStyle(fontSize: 20, color: ColorsApp.white),
-                ),
+                        "تسجيل دخول",
+                        style: TextStyle(fontSize: 20, color: ColorsApp.white),
+                      ),
               ),
               const SizedBox(
                 height: 30,
               ),
-
             ],
           ),
         ),

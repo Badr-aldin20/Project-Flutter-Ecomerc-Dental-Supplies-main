@@ -1,3 +1,5 @@
+// Widget/ButtonSearch.dart
+import 'package:dental_supplies/Pages/ai/ai.dart';
 import 'package:dental_supplies/Utils/ColorsApp.dart';
 import 'package:dental_supplies/Pages/Search/SearchPage.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +23,15 @@ class ButtonSearch extends StatelessWidget {
             border: Border.all(width: 1, color: ColorsApp.gray)),
         child: Row(
           children: [
-            const Icon(
-              Icons.camera_alt_outlined,
-              size: 40,
-              color: ColorsApp.gray,
+            InkWell(
+              onTap: () {
+                Get.to(() => Ai());
+              },
+              child: Icon(
+                Icons.camera_alt_outlined,
+                size: 40,
+                color: ColorsApp.gray,
+              ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),

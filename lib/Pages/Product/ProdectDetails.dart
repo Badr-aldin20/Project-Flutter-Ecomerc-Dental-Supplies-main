@@ -1,3 +1,4 @@
+// Pages/Product/ProdectDetails.dart
 import 'package:dental_supplies/Pages/Product/Product.dart';
 import 'package:dental_supplies/Utils/Api.dart';
 import 'package:dental_supplies/Utils/Check%20internet.dart';
@@ -76,7 +77,7 @@ class _ProdectDetailsState extends State<ProdectDetails> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    ImageProductdetails(src: "${data[0]["image"]}",product_id: "${this.widget.idProduct}",),
+                    ImageProductdetails(src: "${LinksApp.serverSrcImage}/${data[0]["image"]}",product_id: "${this.widget.idProduct}",),
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(15),

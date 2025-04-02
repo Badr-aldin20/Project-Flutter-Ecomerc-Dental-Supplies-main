@@ -376,15 +376,25 @@ class _MyAccountState extends State<MyAccount> {
                               keyboardType: TextInputType.text),
                           ButtonsUpdateAccounts(
                             Ok: () async {
-                              // var id =Cache.GetString()
-                              final response =
-                                  await Api.post("${LinksApp.balance}/${id}", {
-                                "totel_balance": sales.text,
-                                "description": note.text,
-                              });
-                              print("55555555555555555555555");
-                              print("$response");
-                              print("55555555555555555555555");
+                              if (sales.text.isEmpty || note.text.isEmpty) {
+                                Get.snackbar(
+                                    "title", "يرجى ادخال ادخال البيانات كامل");
+                              } else {
+                                final response = await Api.post(
+                                    "${LinksApp.balance}/${id}", {
+                                  "totel_balance": sales.text,
+                                  "description": note.text,
+                                });
+                                print(response["status"]);
+
+                                if (response["status"] == "200") {
+                                  Get.snackbar("title",
+                                      "تم رفع طلبك بنجاح طلب قيد النتظار للموافقه للاداره");
+                                  sales.text == "";
+                                  note.text == "";
+                                  addBalnceInfo = false;
+                                }
+                              }
                             },
                             Cansel: () {
                               name.text = "";

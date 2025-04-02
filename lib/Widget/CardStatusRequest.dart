@@ -3,6 +3,7 @@ import 'package:dental_supplies/Utils/ColorsApp.dart';
 import 'package:flutter/material.dart';
 
 class CardStatusRequest extends StatelessWidget {
+  final String number;
   final String data;
   final String totalPrice;
   final String status;
@@ -14,12 +15,14 @@ class CardStatusRequest extends StatelessWidget {
       required this.data,
       required this.totalPrice,
       required this.status,
-      this.onTap, this.goVerfyCode});
+      this.onTap,
+      this.goVerfyCode,
+      required this.number});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: 160,
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -39,6 +42,10 @@ class CardStatusRequest extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        " رقم الطلب",
+                        style: TextStyle(fontSize: 15, color: ColorsApp.gray),
+                      ),
                       Text(
                         "تأريخ الطلب",
                         style: TextStyle(fontSize: 15, color: ColorsApp.gray),
@@ -66,6 +73,11 @@ class CardStatusRequest extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        number,
+                        style: const TextStyle(
+                            fontSize: 15, color: ColorsApp.gray),
+                      ),
+                      Text(
                         data,
                         style: const TextStyle(
                             fontSize: 15, color: ColorsApp.gray),
@@ -76,7 +88,7 @@ class CardStatusRequest extends StatelessWidget {
                             fontSize: 15, color: ColorsApp.gray),
                       ),
                       Text(
-                        status != "C" ? "قيد التوصيل" : "تم التوصيل",
+                        status != "C" ? "قيد المعالجه" : "تم التسليم",
                         style: TextStyle(
                             fontSize: 12,
                             color: status != "C"
@@ -100,7 +112,7 @@ class CardStatusRequest extends StatelessWidget {
                     style: TextStyle(
                         decoration: TextDecoration.underline, fontSize: 15),
                   )),
-              if(status != "C")
+              if (status != "C")
                 InkWell(
                     onTap: goVerfyCode,
                     child: Text(

@@ -1,3 +1,5 @@
+// Pages/Search/SearchPage.dart
+import 'package:dental_supplies/Pages/ai/ai.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sqflite/sqflite.dart';
@@ -108,7 +110,7 @@ class _SearchPageState extends State<SearchPage> {
         backgroundColor: Colors.white,
         body: !isConnectNet
             ? NoConnect(onTap: _checkInternet)
-            : Container(
+            : SizedBox(
                 width: double.infinity,
                 child: Column(
                   children: [
@@ -143,8 +145,13 @@ class _SearchPageState extends State<SearchPage> {
             ),
             child: Row(
               children: [
-                const Icon(Icons.camera_alt_outlined,
-                    size: 40, color: ColorsApp.gray),
+                InkWell(
+                  onTap: () {
+                    Get.to(() => Ai());
+                  },
+                  child: Icon(Icons.camera_alt_outlined,
+                      size: 40, color: ColorsApp.gray),
+                ),
                 _divider(),
                 const Icon(Icons.search, size: 40, color: ColorsApp.gray),
                 const SizedBox(width: 10),
@@ -283,7 +290,7 @@ class _SearchPageState extends State<SearchPage> {
                               idProduct: data[index]["id"],
                             ));
                       },
-                      Img: data[index]["image"],
+                      Img: "${LinksApp.serverSrcImage}/${data[index]["image"]}",
                       name: data[index]["name"],
                       price: data[index]["price_buy"],
                       id: data[index]["id"],

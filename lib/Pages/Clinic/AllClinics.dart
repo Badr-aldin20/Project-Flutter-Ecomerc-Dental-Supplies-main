@@ -1,10 +1,12 @@
+// Pages/Clinic/AllClinics.dart
 import 'package:dental_supplies/Utils/Api.dart';
 import 'package:dental_supplies/Utils/ColorsApp.dart';
 import 'package:dental_supplies/Pages/Other/NoConnect.dart';
 import 'package:dental_supplies/Utils/LinksApp.dart';
-import 'package:dental_supplies/Widget/ButtonSearch.dart';
 import 'package:dental_supplies/Widget/CardClinic.dart';
 import 'package:dental_supplies/Widget/Loading.dart';
+import 'package:dental_supplies/Widget/SearchInput.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Utils/Check internet.dart';
@@ -15,6 +17,7 @@ class AllClinics extends StatefulWidget {
 }
 
 class _AllClinicsState extends State<AllClinics> {
+  TextEditingController searchController = TextEditingController();
   bool isConnectNet = true;
   bool isLoading = true;
   List data = [];
@@ -62,27 +65,42 @@ class _AllClinicsState extends State<AllClinics> {
                 },
               )
             : isLoading
-                ? Loading()
+                ? const Loading()
                 : Column(
                     children: [
-                      const ButtonSearch(),
+                      SearchInput(
+                        controller: searchController,
+                        onChanged: (val) {
+                          if (val.isNotEmpty) {
+                            data = data
+                                .where((element) =>
+                                    element["name"].toString().contains(val))
+                                .toList();
+                          } else {
+                            GetAllDataForApi();
+                          }
+                          setState(() {});
+                        },
+                      ),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(8),
                           child: GridView.builder(
-                              itemCount: data.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10),
-                              itemBuilder: (context, index) {
-                                return Cardclinic(
-                                    id: data[index]["id"],
-                                    imgSrc: "${LinksApp.serverSrcImage}/${data[index]["image"]}",
-                                    clinic: "${data[index]["name_company"]}",
-                                    nameUser: "${data[index]["name"]}");
-                              }),
+                            itemCount: data.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10),
+                            itemBuilder: (context, index) {
+                              return Cardclinic(
+                                  id: data[index]["id"],
+                                  imgSrc:
+                                      "${LinksApp.serverSrcImage}/${data[index]["image"]}",
+                                  clinic: "${data[index]["name_company"]}",
+                                  nameUser: "${data[index]["name"]}");
+                            },
+                          ),
                         ),
                       )
                     ],

@@ -30,7 +30,7 @@ class _ReportsState extends State<Reports> {
 
     // Get Response
     var response = await Api.get("${LinksApp.getDataStatusRequestById}/${id}");
-
+    print(response);
     if (response["status"] == "200") {
       data.addAll(response["data"]);
     } else {
@@ -75,11 +75,10 @@ class _ReportsState extends State<Reports> {
                                   id: data[index]["Bill_Id"],
                                 ));
                           },
+                          number: "${data[index]["id"]}",
                           data: "${data[index]["created_at"]}",
                           totalPrice: "${data[index]["total_price"]}",
                           status: "${data[index]["StatusOrder"]}");
-  
-  
-  }));
+                    }));
   }
 }

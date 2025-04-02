@@ -1,3 +1,4 @@
+// Pages/Home.dart
 import 'dart:async';
 import 'package:dental_supplies/Pages/Other/EmpityData.dart';
 import 'package:dental_supplies/Utils/Api.dart';
@@ -45,7 +46,6 @@ class _HomeState extends State<Home> {
     data.clear();
 
     var response = await Api.get(LinksApp.dataHomeUrl);
-
     if (response["status"] == "200") {
       Heros.addAll(response["heroes"]);
       data.addAll(response["data"]);
@@ -130,7 +130,9 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   data.isEmpty
-                      ? const EmpityData(txt: "لايوجد بيانات حاليا!",)
+                      ? const EmpityData(
+                          txt: "لايوجد بيانات حاليا!",
+                        )
                       : GridView.builder(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           itemCount: data.length,
@@ -142,7 +144,8 @@ class _HomeState extends State<Home> {
                                   mainAxisSpacing: 10),
                           itemBuilder: (context, index) => Cardclinic(
                             clinic: "${data[index]["name_company"]}",
-                            imgSrc: "${LinksApp.serverSrcImage}/${data[index]["image"]}",
+                            imgSrc:
+                                "${LinksApp.serverSrcImage}/${data[index]["image"]}",
                             nameUser: "${data[index]["name"]}",
                             id: data[index]["id"],
                           ),
